@@ -1,6 +1,8 @@
 #include "raylib.h"
 #include "Macros.h"
 
+#pragma once
+
 class BounceProjectile
 {
 public:

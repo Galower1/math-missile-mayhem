@@ -1,6 +1,8 @@
 #include "Macros.h"
 #include "raylib.h"
 
+#pragma once
+
 class Ship
 {
 private:

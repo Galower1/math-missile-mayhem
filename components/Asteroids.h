@@ -2,7 +2,7 @@
 #include "Macros.h"
 #include <string>
 
-using namespace std;
+#pragma once
 
 class Asteroids
 {
@@ -40,7 +40,7 @@ public:
 
     void TagAst(int num)
     {
-        Id = to_string(num);
+        Id = std::to_string(num);
         Text = Id.c_str();
     }
 
