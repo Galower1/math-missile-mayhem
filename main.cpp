@@ -8,10 +8,12 @@
 
 int main()
 {
+
     InitWindow(SCREENX, SCREENY, "Math Missile Mayhem");
+    Texture2D shipTexture = LoadTexture("ship-medium.png");
     Background Def;
     Asteroids Ast[45];
-    Ship Player;
+    Ship Player{shipTexture};
     BounceProjectile BP;
     STARLOOP
     {
@@ -24,14 +26,13 @@ int main()
         DrawFPS(0, 0);
         Def.Clear();
         Def.TrackStar();
-        Player.TrackShip();
-        Player.Maneuver();
+        Player.RotateTowardsMouse(0.1);
+        Player.Draw();
         STARLOOP
         {
             Ast[i].TrackAst();
             Ast[i].ColAst(Ast, 45, i);
         }
-        BP.TrackProj(Player.GetNode(2, 'x'), Player.GetNode(2, 'y'));
         EndDrawing();
     }
 }
