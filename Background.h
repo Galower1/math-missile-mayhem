@@ -3,36 +3,35 @@
 
 class Background
 {
-    public:
-        Background()
+private:
+    int EstrellasX[45];
+    int EstrellasY[45];
+
+public:
+    Background()
+    {
+        STARLOOP
         {
-            STARLOOP
+            EstrellasX[i] = RANDOMX;
+            EstrellasY[i] = RANDOMY;
+        }
+    }
+
+    void TrackStar()
+    {
+        STARLOOP
+        {
+            DrawPixel(EstrellasX[i], EstrellasY[i], WHITE);
+            EstrellasY[i]++;
+            if (EstrellasY[i] > SCREENY)
             {
-                EstrellasX[i]=RANDOMX;
-                EstrellasY[i]=RANDOMY;
+                EstrellasY[i] = 0;
             }
         }
-        
-        void TrackStar()
-        {
-            STARLOOP
-            {
-                DrawPixel(EstrellasX[i],EstrellasY[i],WHITE);
-                EstrellasY[i]++;
-                if(EstrellasY[i]>SCREENY)
-                {
-                    EstrellasY[i]=0;
-                }
+    }
 
-            }
-        }
-
-        void Clear()
-        {
-            ClearBackground(BLACK);
-        }
-
-    private:
-        int EstrellasX[45];
-        int EstrellasY[45];
+    void Clear()
+    {
+        ClearBackground(BLACK);
+    }
 };
