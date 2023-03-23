@@ -67,35 +67,8 @@ public:
 
     int GetNode(int x, char y)
     {
-        if (y == 'x')
-        {
-            switch (x)
-            {
-            case 1:
-                return (N1x);
-                break;
-            case 2:
-                return (N2x);
-                break;
-            case 3:
-                return (N3x);
-                break;
-            }
-        }
-        else if (y == 'y')
-        {
-            switch (x)
-            {
-            case 1:
-                return (N1y);
-                break;
-            case 2:
-                return (N2y);
-                break;
-            case 3:
-                return (N3y);
-                break;
-            }
-        }
+        int xNodes[]{N1x, N2x, N3x};
+        int yNodes[]{N1y, N2y, N3y};
+        return y == 'x' ? xNodes[x - 1] : yNodes[x - 1];
     }
 };
