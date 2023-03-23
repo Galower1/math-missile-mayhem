@@ -1,3 +1,5 @@
+#include "raylib.h"
+
 #define SCREENX 1200
 #define SCREENY 900
 
@@ -8,5 +10,3 @@
 #define RANDOMY GetRandomValue(0, SCREENY)
 
 #define STARLOOP for (int i = 0; i < 45; i++)
-
-#pragma once

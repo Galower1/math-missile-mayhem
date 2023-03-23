@@ -1,58 +1,96 @@
 #include "raylib.h"
 #include "Macros.h"
+#include <string>
+
+using namespace std;
 
 class Asteroids
 {
-private:
-    int Size = 5;
-    Color Tone = BROWN;
+    public:
 
-    int Posx;
-    int Posy;
-
-    int Dirx;
-    int Diry;
-
-public:
     Asteroids()
     {
         STARLOOP
         {
-            Posx = RANDOMX;
-            Posy = RANDOMY;
+            Posx=RANDOMX;
+            Posy=RANDOMY;
 
-            if ((GetRandomValue(0, 9) % 2) == 0)
-                Dirx = 1;
+            if((GetRandomValue(0,9)%2)==0)
+                Dirx=1;
             else
-                Dirx - 1;
-            if ((GetRandomValue(0, 9) % 2) == 0)
-                Diry = 1;
+                Dirx=-1;
+            if((GetRandomValue(0,9)%2)==0)
+                Diry=1;
             else
-                Diry = -1;
+                Diry=-1;
+        }
+    }
+
+    void TagAst(int num)
+    {
+        Id=to_string(num);
+        Text = Id.c_str();
+    }
+
+    void CheckPos()
+    {
+        if(Posy>SCREENY)
+            {
+                Posy=0;
+            }
+        else if (Posy<0)
+        {
+            Posy=SCREENY;
+        }
+        
+        if(Posx>SCREENX)
+            {
+                Posx=0;
+            }
+        else if(Posx<0)
+        {
+            Posx=SCREENX;
         }
     }
 
     void TrackAst()
     {
-        DrawCircle(Posx, Posy, Size, Tone);
-        Posx += Dirx;
-        Posy += Diry;
-        if (Posy > SCREENY)
-        {
-            Posy = 0;
-        }
-        else if (Posy < 0)
-        {
-            Posy = SCREENY;
-        }
+        DrawCircle(Posx,Posy,Size,Tone);
+        Posx+=Dirx;
+        Posy+=Diry;
+        CheckPos();
+        
+        DrawText(Text,Posx,Posy,20,WHITE);
+    }
 
-        if (Posx > SCREENX)
+    void ColAst(Asteroids Ast[], int num, int self)
+    {
+        Vector2 Pos1 = {Posx,Posy};
+        for(int i=0; i<num; i++)
         {
-            Posx = 0;
-        }
-        else if (Posx < 0)
-        {
-            Posx = SCREENX;
+            Vector2 Pos2 = {Ast[i].Posx, Ast[i].Posy};
+            Check=CheckCollisionCircles(Pos1,(Size+1),Pos2,(Ast[i].Size+1));
+            if(Check&&(i!=self))
+            {
+                Ast[i].Dirx*=-1;
+                Ast[i].Diry*=-1;
+                Dirx*=-1;
+                Diry*=-1;
+            }
         }
     }
+
+    private:
+        int Size=7;
+        std::string Id;
+        const char* Text;
+        bool Check;
+        Color Tone=BROWN;
+
+        int Posx;
+        int Posy;
+
+        int Dirx;
+        int Diry;
+        
 };
