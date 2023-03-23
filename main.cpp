@@ -1,10 +1,10 @@
 #include <iostream>
 #include "raylib.h"
-#include "Macros.h"
-#include "Background.h"
-#include "Asteroids.h"
-#include "Ship.h"
-#include "BounceProjectile.h"
+#include "components/Macros.h"
+#include "components/Background.h"
+#include "components/Asteroids.h"
+#include "components/Ship.h"
+#include "components/BounceProjectile.h"
 
 int main()
 {
