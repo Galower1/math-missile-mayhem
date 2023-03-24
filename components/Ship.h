@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include "math.h"
 #include <string>
+#include <iostream>
 
 #pragma once
 
@@ -9,49 +10,61 @@ class Ship
 {
 private:
     Texture2D texture;
-    Vector2 textureOffset;
+    Vector2 position{SCREENX / 2, SCREENY / 2};
+    float rotationAngle;
+    Vector2 shipCenter;
+    Rectangle shipBox;
 
 public:
-    Vector2 position;
-    float rotationAngle;
-    Ship(Texture2D texture);
-    void Draw();
-    void RotateTowardsMouse(float rotateSpeed);
+    Ship(Texture2D texture) : texture(texture)
+    {
+        shipCenter.x = texture.width / 2;
+        shipCenter.y = texture.height / 2;
+        shipBox = {
+            0, 0, (float)texture.width, (float)texture.height};
+    }
+
+    ~Ship()
+    {
+        UnloadTexture(texture);
+    }
+
+    void maneuver()
+    {
+        if (IsKeyDown(87))
+        {
+            position.y -= 2;
+        }
+        if (IsKeyDown(83))
+        {
+            position.y += 2;
+        }
+        if (IsKeyDown(65))
+        {
+            position.x -= 2;
+        }
+        if (IsKeyDown(68))
+        {
+            position.x += 2;
+        }
+    }
+
+    void draw()
+    {
+        Vector2 mousePosition = GetMousePosition();
+        float angle = atan2(mousePosition.y - (position.y + shipCenter.y), mousePosition.x - (position.x + shipCenter.x));
+        angle = angle * RAD2DEG;
+
+        DrawTexturePro(
+            texture,
+            shipBox,
+            Rectangle{
+                position.x + texture.width / 2,
+                position.y + texture.height / 2,
+                (float)texture.width,
+                (float)texture.height},
+            shipCenter,
+            angle + 90,
+            WHITE);
+    }
 };
-
-Ship::Ship(Texture2D texture)
-{
-    this->texture = texture;
-    textureOffset = Vector2{(float)texture.width / 2, (float)texture.height / 2};
-    position = Vector2{350, 350};
-    rotationAngle = 0;
-}
-
-void Ship::Draw()
-{
-    DrawTexturePro(texture,
-                   Rectangle{0, 0, (float)texture.width, (float)texture.height},
-                   Rectangle{position.x - textureOffset.x,
-                             position.y - textureOffset.y,
-                             (float)texture.width,
-                             (float)texture.height},
-                   textureOffset,
-                   rotationAngle,
-                   WHITE);
-}
-
-void Ship::RotateTowardsMouse(float rotateSpeed)
-{
-    Vector2 mousePos = GetMousePosition();
-    float targetAngle = atan2(mousePos.y - position.y, mousePos.x - position.x) * RAD2DEG;
-    if (targetAngle < 0)
-        targetAngle += 360;
-
-    float angleDiff = targetAngle - rotationAngle;
-    if (angleDiff < -180)
-        angleDiff += 360;
-    else if (angleDiff > 180)
-        angleDiff -= 360;
-
-    rotationAngle += (angleDiff * rotateSpeed);
-}
