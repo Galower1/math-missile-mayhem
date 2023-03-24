@@ -33,19 +33,36 @@ public:
     {
         if (IsKeyDown(87))
         {
-            position.y -= 2;
+            position.y -= 3;
         }
         if (IsKeyDown(83))
         {
-            position.y += 2;
+            position.y += 3;
         }
         if (IsKeyDown(65))
         {
-            position.x -= 2;
+            position.x -= 3;
         }
         if (IsKeyDown(68))
         {
-            position.x += 2;
+            position.x += 3;
+        }
+
+        if(position.x>SCREENX)
+        {
+            position.x=0;
+        }
+        else if (position.x<0)
+        {
+            position.x=SCREENX;
+        }
+        if(position.y>SCREENY)
+        {
+            position.y=0;
+        }
+        else if (position.y<0)
+        {
+            position.y=SCREENY;
         }
     }
 
@@ -66,5 +83,13 @@ public:
             shipCenter,
             angle + 90,
             WHITE);
+    }
+
+    Vector2 getCannonPosition()
+    {
+        return Vector2{
+            x : position.x + shipCenter.x,
+            y : position.y + shipCenter.y
+        };
     }
 };
