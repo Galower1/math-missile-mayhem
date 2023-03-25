@@ -1,30 +1,40 @@
 #include "raylib.h"
 #include "Ship.h"
 
+#pragma once
+
 class Missile
 {
-    private:
-        int Size=3;
-        bool flag=0;
-        Color Tone = GREEN;
+private:
+    int Size = 3;
+    int Speed = 3;
 
-        Vector2 Pos;
-        Vector2 Dir;
+    bool Flag = 0;
+    Color Tone = GREEN;
 
-    public:
-        Missile(Vector2 Origin)
-        {
-            Pos = Origin;
-            Dir={(GetMousePosition().x)-Pos.x,(GetMousePosition().y-Pos.y)};
-        }
-        void TrackPos()
-        {
-            Pos={(Pos.x+(Dir.x)/75),(Pos.y+(Dir.y)/75)};
-            DrawCircle(Pos.x,Pos.y,Size,Tone);
-        }
+    float Angle;
+    float Mag;
 
-        Vector2 GetPos()
-        {
-            return(Pos);
-        }
+    Vector2 Pos;
+    Vector2 Dir;
+
+public:
+    Missile(Vector2 Origin)
+    {
+        Pos = Origin;
+        Dir = {(GetMousePosition().x) - Pos.x, (GetMousePosition().y - Pos.y)};
+        Mag = sqrt((Dir.x * Dir.x) + (Dir.y * Dir.y));
+        Angle = atan(Dir.y / Dir.x);
+        Angle = (Angle * RAD2DEG);
+    }
+    void TrackPos()
+    {
+        Pos = {(Pos.x + ((Dir.x / Mag) * Speed)), (Pos.y + ((Dir.y / Mag) * Speed))};
+        DrawCircle(Pos.x, Pos.y, Size, Tone);
+    }
+    Vector2 GetPos()
+    {
+        return (Pos);
+    }
 };
+;

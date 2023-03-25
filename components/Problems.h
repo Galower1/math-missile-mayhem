@@ -3,6 +3,8 @@
 #include <vector>
 #include "Macros.h"
 
+#pragma once
+
 class Problems
 {
 private:
@@ -11,6 +13,7 @@ private:
     int totalAsteroids;
     int idAsteroid;
     Asteroids *asteroids;
+    Color problemBoxColor;
 
     void setTotalAsteroids()
     {
@@ -27,7 +30,7 @@ private:
 
     void renderProblemBox()
     {
-        DrawRectangle(0, 0, 250, 80, WHITE);
+        DrawRectangle(0, 0, 250, 80, problemBoxColor);
         DrawText("EXERCISE", 10, 10, 20, BLACK);
     }
 
@@ -46,7 +49,7 @@ private:
     }
 
 public:
-    Problems(Asteroids ast[]) : solved(false), target(GetRandomValue(1, 500)), asteroids(ast)
+    Problems(Asteroids ast[]) : solved(false), target(GetRandomValue(1, 500)), asteroids(ast), problemBoxColor(WHITE)
     {
         setTotalAsteroids();
         idAsteroid = GetRandomValue(1, totalAsteroids);
@@ -60,6 +63,11 @@ public:
     int getProblemAsteroidId()
     {
         return idAsteroid;
+    }
+
+    void changeBoxColor(Color newColor)
+    {
+        problemBoxColor = newColor;
     }
 
     void setSolved()
