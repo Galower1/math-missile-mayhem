@@ -12,7 +12,7 @@ private:
     int idAsteroid;
     Asteroids *asteroids;
 
-    void setTotalAsteroid()
+    void setTotalAsteroids()
     {
         int count = 0;
         for (int i = 0; i < ASTEROID_NUMBER; i++)
@@ -35,20 +35,20 @@ private:
     {
         if (solved)
         {
-            setTotalAsteroid();
+            setTotalAsteroids();
             target = GetRandomValue(1, 500);
             idAsteroid = GetRandomValue(1, totalAsteroids);
             solved = false;
         }
 
         int output = idAsteroid + target;
-        DrawText(TextFormat("%d + x = %d", target, output), 10, 40, 30, BLUE);
+        DrawText(TextFormat("%d + ? = %d", target, output), 10, 40, 30, BLUE);
     }
 
 public:
     Problems(Asteroids ast[]) : solved(false), target(GetRandomValue(1, 500)), asteroids(ast)
     {
-        setTotalAsteroid();
+        setTotalAsteroids();
         idAsteroid = GetRandomValue(1, totalAsteroids);
     }
 
