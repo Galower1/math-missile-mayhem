@@ -9,4 +9,6 @@
 #define RANDOMX GetRandomValue(0, SCREENX)
 #define RANDOMY GetRandomValue(0, SCREENY)
 
-#define STARLOOP for (int i = 0; i < 45; i++)
+#define ASTEROID_NUMBER 45
+
+#define STARLOOP for (int i = 0; i < ASTEROID_NUMBER; i++)

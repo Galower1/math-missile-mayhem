@@ -11,6 +11,7 @@ private:
     std::string Id;
     const char *Text;
     bool Check;
+    bool Alive = true;
     Color Tone = BROWN;
 
     int Posx;
@@ -36,6 +37,11 @@ public:
             else
                 Diry = -1;
         }
+    }
+
+    bool isAlive()
+    {
+        return Alive;
     }
 
     void TagAst(int num)
