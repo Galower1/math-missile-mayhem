@@ -97,4 +97,14 @@ public:
             }
         }
     }
+
+    Vector2 getCenter()
+    {
+        return Vector2{(float)Posx, (float)Posy};
+    }
+
+    int getRadius()
+    {
+        return Size;
+    }
 };

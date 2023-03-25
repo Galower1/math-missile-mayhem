@@ -48,21 +48,21 @@ public:
             position.x += 3;
         }
 
-        if(position.x>SCREENX)
+        if (position.x > SCREENX)
         {
-            position.x=0;
+            position.x = 0;
         }
-        else if (position.x<0)
+        else if (position.x < 0)
         {
-            position.x=SCREENX;
+            position.x = SCREENX;
         }
-        if(position.y>SCREENY)
+        if (position.y > SCREENY)
         {
-            position.y=0;
+            position.y = 0;
         }
-        else if (position.y<0)
+        else if (position.y < 0)
         {
-            position.y=SCREENY;
+            position.y = SCREENY;
         }
     }
 
@@ -91,5 +91,20 @@ public:
             x : position.x + shipCenter.x,
             y : position.y + shipCenter.y
         };
+    }
+
+    Vector2 getCenter()
+    {
+        return Vector2{(float)shipCenter.x + position.x, (float)shipCenter.y + position.y};
+    }
+
+    int getRadius()
+    {
+        return texture.width / 2 - 20;
+    }
+
+    void resetPosition()
+    {
+        position = Vector2{(float)(SCREENX / 2) - texture.width, (float)(SCREENY / 2) - texture.height};
     }
 };
