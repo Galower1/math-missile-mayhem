@@ -73,12 +73,15 @@ public:
 
     void TrackAst()
     {
-        DrawCircle(Posx, Posy, Size, Tone);
-        Posx += Dirx;
-        Posy += Diry;
-        CheckPos();
+        if (Alive)
+        {
+            DrawCircle(Posx, Posy, Size, Tone);
+            Posx += Dirx;
+            Posy += Diry;
+            CheckPos();
 
-        DrawText(Text, Posx, Posy, 20, WHITE);
+            DrawText(Text, Posx, Posy, 20, WHITE);
+        }
     }
 
     void ColAst(Asteroids Ast[], int num, int self)
@@ -106,5 +109,10 @@ public:
     int getRadius()
     {
         return Size;
+    }
+
+    void kill()
+    {
+        Alive = false;
     }
 };

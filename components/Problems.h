@@ -55,11 +55,6 @@ public:
         idAsteroid = GetRandomValue(1, totalAsteroids);
     }
 
-    ~Problems()
-    {
-        delete asteroids;
-    }
-
     int getProblemAsteroidId()
     {
         return idAsteroid;

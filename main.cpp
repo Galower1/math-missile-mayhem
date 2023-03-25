@@ -37,7 +37,7 @@ int main()
             Player.draw();
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
-                Proj.push_back(Player.getCannonPosition());
+                Proj.push_back(Missile{Player.getCannonPosition(), Proj.size()});
             }
             STARLOOP
             {
@@ -52,7 +52,8 @@ int main()
             for (int i = 0; i < Proj.size(); i++)
             {
                 Proj[i].TrackPos();
-                if ((Proj[i].GetPos().x > SCREENX) || (Proj[i].GetPos().y > SCREENY))
+                Proj[i].checkCollisions(Ast, Proj, problems);
+                if ((Proj[i].GetPos().x > SCREENX) || (Proj[i].GetPos().y > SCREENY) || (Proj[i].GetPos().x < 0) || (Proj[i].GetPos().y < 0))
                 {
                     Proj.erase(Proj.begin() + i);
                 }
@@ -83,4 +84,6 @@ int main()
         }
         EndDrawing();
     }
+
+    return 0;
 }
